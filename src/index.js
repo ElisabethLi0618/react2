@@ -5,38 +5,23 @@ import ReactDOM from 'react-dom';
 // import App from './App';
 // import reportWebVitals from './reportWebVitals';
 
-
+//表单处理 非受控组件
 class App extends React.Component {
-  //简化后的版本 初始状态
-  state = {
-    txt: '',
-    content: '',
-    city: '',
-    isChecked: false
+  constructor(){
+    super()
+    //创建ref
+    this.txtRef = React.createRef()
   }
-  handleForm = e => {
-    //获取当前的DOM对象
-    const target = e.target
-    //根据类型不同 先判断类型再获取不同的值 用三元表达式  ？ ：
-    const value = target.type === 'checkbox'
-      ? target.checked
-      : target.value
+  //获取文本框的值
+  getTxt=()=> {
+    console.log('文本框值为： ',this.txtRef.current.value);
   }
 
-  render() {
-    return (
+  render(){
+    return(
       <div>
-        <input type="text" name="txt" value={this.state.txt} onChange={this.handleForm} />
-        <br />
-        <textarea name="content" value={this.state.content} onChange={this.handleForm}></textarea>
-        <br />
-        <select name="city" value={this.state.city} onChange={this.handleForm}>
-          <option value="sh">上海</option>
-          <option value="bj">北京</option>
-          <option value="hz">杭州</option>
-        </select>
-        <br />
-        <input type="checkbox" name="isChecked" checked={this.state.isChecked} onChange={this.handleForm} />
+        <input type="text" ref={this.txtRef} />
+        <button onClick={this.getTxt}>获取文本框的值</button>
       </div>
     )
   }
