@@ -3,45 +3,34 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 
-// props
-
-// 1，函数组件 此处用的是箭头函数
-// const Hello = props => {
-//     //props 是一个对象
-//     console.log(props)
-//     return(
-//         <div>
-//             <h1>props: {props.name} </h1>
-//         </div>
-//     )
-// }
-
-//2，类 class 组件
- 
-//也是先接收数据
-class Hello extends React.Component {
-    //推荐使用props作为的 constrctor 参数
-    constructor(props){
-        super(props)
-        console.log(props);
+// 父组件
+class Parent extends React.Component {
+    state ={
+        lastName: '李'
     }
+
     render(){
-        console.log('render', this.props)
         return(
-            <div>
-                <h1>props:{this.props.name}</h1>
+            <div className="parent">
+                父组件：
+                <Child name={this.state.lastName} />
             </div>
         )
     }
 }
 
-//这里是传递数据的
-ReactDOM.render(<Hello 
-    name="rose" 
-    age={18} 
-    colors={['red','green', 'blue']}
-    fn={() => console.log('这是一个函数')}
-    tag={ <p>这是一个标签</p> }
-    />, document.getElementById('root'))
+//子组件
+const Child = props => {
+    console.log('子组件',props)
+    return(
+        <div className="child">
+            {/* 父组件的数据就是state的数据 李 */}
+            <p>子组件，接收到父组件的数据:{props.name} </p>
+        </div>
+    )
+
+}
+
+ReactDOM.render(<Parent />, document.getElementById('root'))
 
 
