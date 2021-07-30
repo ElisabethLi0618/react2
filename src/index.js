@@ -2,50 +2,43 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+// 兄弟组件传递
 
 // 父组件
-class Parent extends React.Component {
-    //父组件初始状态是空的内容  子组件调用之后接收子组件传递过来的数据
+class Counter extends React.Component {
+
+    // 提供共享状态
     state ={
-        parentMsg:''
+        count: 0
     }
-    //提供回调函数，用来接收数据
-    getChildMsg = data => {
-        console.log('接收到子组件中传递过来的数据：', data)
-        this.setState({
-            parentMsg: data
-        })
+
+    // 提供修改状态的方法  方法是一个函数  setState 用来更改状态
+    onIncrement =() => {
+      this.setState({
+          count: this.state.count +1
+      })
     }
 
     render(){
-        return(
-            <div className="parent">
-                父组件：{this.state.parentMsg}
-                <Child getMsg={this.getChildMsg} />
+        return (
+            <div>
+                <Child1 count={this.state.count} />
+                <Child2 onIncrement={this.onIncrement} />
             </div>
         )
     }
 }
 
-//子组件
-class Child extends React.Component {
-    state ={
-        msg: '玩手机'
-    }
-    handleClick = ()=> {
-        //子组件调用父组件传递过来的回调函数
-        this.props.getMsg(this.state.msg)
-    }
-    render(){
-        return(
-            <div className="child">
-                子组件： {''}
-                <button onClick={this.handleClick}>点击，给父组件传递数据</button>
-            </div>
-        )
-    }
+//此处用props 来接收父组件里的状态 
+const Child1=(props)=>{
+    return <h1>计数器：{props.count} </h1>
 }
 
-ReactDOM.render(<Parent />, document.getElementById('root'))
+const Child2 =(props)=>{
+    return <button onClick={() => props.onIncrement()} >+1</button>
+}
+
+
+ReactDOM.render(<Counter />, document.getElementById('root'))
 
 
