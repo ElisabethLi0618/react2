@@ -2,43 +2,47 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-// 兄弟组件传递
+// react 复习
 
-// 父组件
-class Counter extends React.Component {
+// 1，列表渲染
 
-    // 提供共享状态
-    state ={
-        count: 0
-    }
+// const songs = [
+//     {id: 1, name: '莫扎特'},
+//     {id: 2, name: '贝多芬'},
+//     {id: 3, name: '我'},
+// ]
 
-    // 提供修改状态的方法  方法是一个函数  setState 用来更改状态
-    onIncrement =() => {
-      this.setState({
-          count: this.state.count +1
-      })
-    }
+// const list =(
+//     <ul>
+//         {songs.map(item =><li key={item.id}>{item.name}</li> )}
+//     </ul>
+// )
 
+// 2，函数组件
+// function Ying (){
+//     return (
+//         <div>这是一个函数组件，函数名首字母要大写（Y），还要有返回值 （return）</div>
+//     )
+// }
+
+// 3, 箭头函数
+//const Ying =() => <div>这是一个函数组件，函数名首字母要大写（Y），还要有返回值 （return）</div>
+
+// 4,类组件class
+// class Ying extends React.Component {
+//     render(){
+//         return <div>这是一个名为Ying 的类组件，类组件必须要提供“render（）方法”，也必须有返回值。</div>
+//     }
+// }
+
+class Ying extends React.Component {
     render(){
-        return (
-            <div>
-                <Child1 count={this.state.count} />
-                <Child2 onIncrement={this.onIncrement} />
-            </div>
+        return  (
+            <h1>这是一个类组件。</h1>
         )
     }
 }
 
-//此处用props 来接收父组件里的状态 
-const Child1=(props)=>{
-    return <h1>计数器：{props.count} </h1>
-}
-
-const Child2 =(props)=>{
-    return <button onClick={() => props.onIncrement()} >+1</button>
-}
-
-
-ReactDOM.render(<Counter />, document.getElementById('root'))
+ReactDOM.render(<Ying />, document.getElementById('root'))
 
 
